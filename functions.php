@@ -1,33 +1,28 @@
-
 <?php
 
-// *** Theme Setup *** \\
-
+// *** Remove the parent themes stylesheet and scripts *** \\
 function understrap_remove_scripts() {
     wp_dequeue_style( 'understrap-styles' );
     wp_deregister_style( 'understrap-styles' );
 
     wp_dequeue_script( 'understrap-scripts' );
     wp_deregister_script( 'understrap-scripts' );
-
-    // Removes the parent themes stylesheet and scripts from inc/enqueue.php
 }
 add_action( 'wp_enqueue_scripts', 'understrap_remove_scripts', 20 );
 
-add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
+// Get the theme data
 function theme_enqueue_styles() {
-
-	// Get the theme data
-	$the_theme = wp_get_theme();
+    $the_theme = wp_get_theme();
     wp_enqueue_style( 'child-understrap-styles', get_stylesheet_directory_uri() . '/css/child-theme.min.css', array(), $the_theme->get( 'Version' ) );
     wp_enqueue_script( 'jquery');
-	wp_enqueue_script( 'popper-scripts', get_template_directory_uri() . '/js/popper.min.js', array(), false);
     wp_enqueue_script( 'child-understrap-scripts', get_stylesheet_directory_uri() . '/js/child-theme.min.js', array(), $the_theme->get( 'Version' ), true );
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
 }
+add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
+//Text Domain
 function add_child_theme_textdomain() {
     load_child_theme_textdomain( 'understrap-child', get_stylesheet_directory() . '/languages' );
 }
@@ -36,37 +31,14 @@ add_action( 'after_setup_theme', 'add_child_theme_textdomain' );
 // Shortcodes in text widgets
 add_filter('widget_text', 'do_shortcode');
 
-
-
-
-
-// *** Theme Styles *** \\
-
-function d4tw_enqueue_styles () {
-    wp_enqueue_style( 'Open Sans', 'https://fonts.googleapis.com/css?family=Open+Sans' );
-    wp_enqueue_style( 'AOS CSS', get_stylesheet_directory_uri() . '/aos/aos.css' );
+// *** PSC Theme Files *** \\
+function psc_enqueue_files () {
+    wp_enqueue_style( 'Google Fonts', 'https://fonts.googleapis.com/css?family=PT+Sans&display=swap' );
+    wp_enqueue_script( 'PSC Theme JS', get_stylesheet_directory_uri() . '/js/psc.js', array('jquery'), '1.0.0', true );
 }
-add_action('wp_enqueue_scripts', 'd4tw_enqueue_styles');
+add_action('wp_enqueue_scripts', 'psc_enqueue_files');
 
-
-
-
-
-// *** Theme Scripts *** \\
-
-function d4tw_enqueue_scripts () {
-   wp_enqueue_script( 'D4TW Theme JS', get_stylesheet_directory_uri() . '/js/d4tw.js', array('jquery'), '1.0.0', true );
-   wp_enqueue_script( 'AOS JS', get_stylesheet_directory_uri() . '/aos/aos.js', array('jquery'), '1.0.0', true );
-}
-add_action( 'wp_enqueue_scripts', 'd4tw_enqueue_scripts' );
-
-
-
-
-
-// *** Advanced Custom Fields *** \\
-
-//Add the ACF options page
+// *** ACF Options Page *** \\
 if( function_exists('acf_add_options_page') ) {
 
 	acf_add_options_page(array(
@@ -77,137 +49,73 @@ if( function_exists('acf_add_options_page') ) {
     
 }
 
-//Register the Google Maps API for use with ACF
+// *** Google Maps Script for ACF *** \\
 function google_maps_scripts () {
 	if (is_page('contact')) {
-	   		wp_enqueue_script( 'google-map', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB_LlgIpFpelPIbA25yjUi_dhCywFKKYco', array(), '3', true );
+	   		wp_enqueue_script( 'google-map', 'https://maps.googleapis.com/maps/api/js?key=API+KEY', array(), '3', true );
 			wp_enqueue_script( 'google-map-init', get_stylesheet_directory_uri() . '/js/google-maps.js', array('google-map', 'jquery'), '0.1', true );
 		}
 	}
-	
 add_action( 'wp_enqueue_scripts', 'google_maps_scripts' );
 
+// *** Register Google Maps API for ACF *** \\
 function my_acf_google_map_api( $api ){
-	$api['key'] = 'AIzaSyB_LlgIpFpelPIbA25yjUi_dhCywFKKYco';
+	$api['key'] = 'API+KEY';
 	return $api;	
 }
-
 add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 
-
-
-
-// *** D4TW Custom Dashboard *** \\
-
-function d4tw_add_dashboard_widget() {
-	add_meta_box('wp_dashboard_widget_1', 'Theme Details', 'd4tw_theme_info', 'dashboard', 'side', 'high');
-  //wp_add_dashboard_widget('wp_dashboard_widget', 'Theme Details', 'd4tw_theme_info');
+//PSC Custom Dash Footer
+function psc_filter_admin_footer () {
+    echo '<span id="dashFooter">Website developed by <a style = "color: #f05a28; text-decoration: none;" href="https://www.pixelstrikecreative.com" target="_blank">PixelStrike Creative</a></span>';
 }
-add_action('wp_dashboard_setup', 'd4tw_add_dashboard_widget' );
- 
-function d4tw_theme_info() {
-  echo "<ul>
-  <li><strong>Developed By:</strong> Designs 4 The Web</li>
-  <li><strong>Website:</strong> <a href='http://www.designs4theweb.com'>www.designs4theweb.com</a></li>
-  <li><strong>Contact:</strong> <a href='mailto:mike@designs4theweb.com'>mike@designs4theweb.com</a></li>
-  </ul>";
-}
-
-//Remove the tools menu option for editors
-function d4tw_remove_menus(){
-if ( current_user_can( 'editor' ) ) {
-remove_menu_page( 'tools.php' );
-	}
-}
-add_action( 'admin_menu', 'd4tw_remove_menus' );
-
-//Remove widgets from dashboard
-function d4tw_remove_dash_meta() {
-        remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_secondary', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
-}
-add_action( 'admin_init', 'd4tw_remove_dash_meta' );
-
-//Filter the WordPress branding in the dashboard footer
-function d4tw_filter_admin_footer () {
-    echo '<span id="dashFooter">Website developed by <a style = "color: #ff0000; text-decoration: none;" href="http://www.designs4theweb.com" target="_blank">Designs 4 The Web</a></span>';
-}
-add_filter('admin_footer_text', 'd4tw_filter_admin_footer');
+add_filter('admin_footer_text', 'psc_filter_admin_footer');
 
 //Add custom logo to wp-login
-function d4tw_custom_logo_css () {
+function psc_custom_logo_css () {
     wp_enqueue_style('login-styles', get_stylesheet_directory_uri() . '/login/login_styles.css');
 }
-add_action('login_enqueue_scripts', 'd4tw_custom_logo_css');
+add_action('login_enqueue_scripts', 'psc_custom_logo_css');
 
 //Change the wp-login logo url
-function d4tw_login_url(){
+function psc_login_url(){
     return get_bloginfo( 'wpurl' );
 }
-add_filter('login_headerurl', 'd4tw_login_url');
+add_filter('login_headerurl', 'psc_login_url');
 
 //Replace the WordPress dashboard logo
-function d4tw_admin_css() {
+function psc_admin_css() {
 	wp_enqueue_style('dashboard-styles', get_stylesheet_directory_uri() . '/dashboard/dashboard.css');
 }
-
-add_action('admin_head', 'd4tw_admin_css');
-
-
-
-
-
-// *** Custom Menus *** \\
-
-
-
-
-
-
-// *** Template Tags *** \\
-
-
-
-
-
-// *** User Tweaks & Permissions *** \\
-
-// Hide the admin toolbar for non-admins
-add_action('admin_init', 'd4tw_disable_admin_bar');
-
-function d4tw_disable_admin_bar() {
-    if ( !current_user_can ( 'administrator' ) ) {
-        show_admin_bar(false);
-    }
-}
-
-
-
-
+add_action('admin_head', 'psc_admin_css');
 
 // *** Widgets *** \\
 
 // Deregister Sidebars
-function d4tw_remove_sidebars () {
-	unregister_sidebar( 'statichero' );
+function psc_remove_sidebars () {
 	unregister_sidebar( 'hero' );
+	unregister_sidebar( 'herocanvas' );
+	unregister_sidebar( 'statichero' );
 	unregister_sidebar( 'footerfull' );
 	unregister_sidebar( 'left-sidebar' );
-
+	unregister_sidebar( 'right-sidebar' );
 }
-
-add_action( 'widgets_init', 'd4tw_remove_sidebars', 11 );
+add_action( 'widgets_init', 'psc_remove_sidebars', 11 );
 
 // Register Theme Sidebars
-function d4tw_sidebars() {
+function psc_sidebars() {
+	$args = array(
+        'id'            => 'primary_sidebar',
+        'class'         => 'primary-sidebar',
+        'name'          => 'Sidebar',
+        'description'   => 'This widget area will appear on the side of a page.',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h5 class="widgettitle">',
+        'after_title'   => '</h5>',
+    );
+    register_sidebar( $args );
 
     $args = array(
         'id'            => 'footer_1',
@@ -258,10 +166,19 @@ function d4tw_sidebars() {
     register_sidebar( $args );
 
 }
-add_action( 'widgets_init', 'd4tw_sidebars' );
+add_action( 'widgets_init', 'psc_sidebars' );
 
+//Add the theme thumbnail sizes
+add_image_size( 'blog-small', 575, 400, array( 'center', 'center' ) );
+add_image_size( 'blog-large', 1140, 415, array( 'center', 'center' ) );
 
+//Change read more hellip to just dots
+function psc_excerpt_more( $more ) {
+    return '...';
+}
+add_filter( 'excerpt_more', 'psc_excerpt_more' );
 
-
-
-// *** WooCommerce *** \\
+function understrap_all_excerpts_get_more_link( $post_excerpt ) {
+    return $post_excerpt . '<p><a class="read-more-link text-uppercase" href="' . get_permalink( get_the_ID() ) . '">' . 'Read More' . '</a></p>';
+}
+add_filter( 'wp_trim_excerpt', 'understrap_all_excerpts_get_more_link' );
