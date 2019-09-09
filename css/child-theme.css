@@ -10948,6 +10948,41 @@ footer {
 /*------------------------------------------------*/
 /*--------------------[PAGES]---------------------*/
 /*------------------------------------------------*/
+#homepage #heroSlider {
+  margin-bottom: 0;
+  display: none; }
+  #homepage #heroSlider .slider-caption {
+    margin-top: 10px;
+    font-size: .8rem;
+    font-style: italic;
+    color: #6B0005; }
+
+#homepage #heroSlider.slick-initialized {
+  display: block; }
+
+#homepage #heroDots ul {
+  list-style: none;
+  padding-left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 0; }
+  #homepage #heroDots ul li {
+    margin-right: 5px; }
+    #homepage #heroDots ul li button {
+      width: 20px;
+      height: 20px;
+      text-indent: -9999px;
+      overflow: hidden;
+      border-radius: 10px;
+      border: solid 3px #464646;
+      background-color: #D1D1D1; }
+  #homepage #heroDots ul .slick-active button {
+    background-color: #707070; }
+
 /*------------------------------------------------*/
 /*--------------------[FORMS]-------------------*/
 /*------------------------------------------------*/

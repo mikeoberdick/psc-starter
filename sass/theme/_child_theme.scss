@@ -185,7 +185,45 @@ footer {
 /*------------------------------------------------*/
 /*--------------------[PAGES]---------------------*/
 /*------------------------------------------------*/
-
+#homepage {
+	#heroSlider {
+		margin-bottom: 0;
+		display: none;
+		.slider-caption {
+			margin-top: 10px;
+			font-size: .8rem;
+			font-style: italic;
+			color: $maroon;
+		}
+	}
+	#heroSlider.slick-initialized { display: block; }
+	#heroDots {
+		ul {
+			list-style: none;
+			padding-left: 0;
+			display: flex;
+			justify-content: center;
+			margin-bottom: 0;
+			li {
+				margin-right: 5px;
+				button {
+					width: 20px;
+				    height: 20px;
+				    text-indent: -9999px;
+				    overflow: hidden;
+				    border-radius: 10px;
+				    border: solid 3px #464646;
+				    background-color: #D1D1D1;
+				}
+			}
+			.slick-active {
+				button {
+					background-color: #707070;
+				}
+			}
+		}
+	}
+}
 /*------------------------------------------------*/
 /*--------------------[FORMS]-------------------*/
 /*------------------------------------------------*/

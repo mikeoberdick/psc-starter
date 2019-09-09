@@ -3,39 +3,38 @@
 <?php get_header(); ?>
 
 <div id	= "homepage">
-	<main class="site-main" id="main">
-		<?php $hero = get_field('hero'); ?>
-		<section id = "hero" class="container-fluid position-relative" style = "background: url('<?php echo $hero['image']['url']; ?>');">
-			<div class="row">
-				<div class="col-sm-12">
-					<h1 class = "mb-4 font-weight-bold text-white"><?php echo $hero['header']; ?></h1>
-					<p class = "h5 text-white mb-5"><?php echo $hero['text']; ?></p>
-					<a href = '<?php echo bloginfo('url'); ?>/contact'>
-						<button role = 'button' class = 'btn btn-mint btn-lg'><?php echo $hero['button_text']; ?></button>
-					</a><!-- .btn-primary -->
-				</div><!-- .col-sm-12 -->
-			</div><!-- .row -->
-		</section><!-- .container-fluid -->
+	<main id="main" class="site-main container" >
+		<?php if ( have_rows('slider') ) : ?>
+		<section id = "heroSliderWrapper">
+			<div id="heroSlider">
+				<?php while( have_rows('slider') ): the_row();
+					$image = get_sub_field('image');
+					$caption = get_sub_field('caption');
+					?>
+
+					<div class = "slide">
+						<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" />
+						<p class = "slider-caption"><?php echo $caption; ?></p>
+					</div><!-- .slide -->
+				<?php endwhile; ?>
+			</div><!-- #heroSlider -->
+			<div id="heroDots"></div><!-- #heroDots -->
+		</section><!-- #heroSliderWrapper -->
+		<?php endif; ?>
 
 		<section id="sectionTwo">
 			<div class="container">
 				<div class="row">
-				<?php if( have_rows('section_2') ): ?>
-					<?php while( have_rows('section_2') ): the_row(); 
-					// vars
-						$image = get_sub_field('image');
-						$header = get_sub_field('header');
-						$text = get_sub_field('text');
-					?>
-					<div class = "callout text-center col-md-4 mb-5">
-						<img class = "mb-3" src="<?php echo $image['url']; ?>" alt="echo $image['alt']">
-						<h2 class = "h4 font-weight-bold mb-3"><?php echo $header; ?></h2>
-						<p class = "mb-0 mb-md-3"><?php echo $text; ?></p>
-					</div><!-- .col-md-4 -->
-					<?php endwhile; endif; ?>
-					<div class="col-sm-12 text-center">
-						<a href = '<?php echo bloginfo('url'); ?>/contact'><button role = 'button' class = 'btn btn-purple btn-lg'>Schedule a new patient appointment</button></a>
-					</div>
+					<div class="col-md-6">
+						<img src="" alt="">
+						<h2 class="h3">LATEST NEWS</h2>
+						<?php the_field('latest_news'); ?>
+					</div><!-- .col-md-6 -->
+					<div class="col-md-6">
+						<img src="" alt="">
+						<h2 class="h3">UPCOMING EVENTS</h2>
+						<?php the_field('upcoming_events'); ?>
+					</div><!-- .col-md-6 -->
 				</div><!-- .row -->
 			</div><!-- .container -->
 		</section><!-- #sectionTwo -->

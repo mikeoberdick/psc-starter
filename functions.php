@@ -33,7 +33,10 @@ add_filter('widget_text', 'do_shortcode');
 
 // *** PSC Theme Files *** \\
 function psc_enqueue_files () {
+    wp_enqueue_style( 'Slick CSS', get_stylesheet_directory_uri() . '/slick/slick.css' );
+    wp_enqueue_style( 'Slick Theme CSS', get_stylesheet_directory_uri() . '/slick/slick-theme.css' );
     wp_enqueue_style( 'Google Fonts', 'https://fonts.googleapis.com/css?family=PT+Sans&display=swap' );
+    wp_enqueue_script( 'Slick JS', get_stylesheet_directory_uri() . '/slick/slick.min.js', array('jquery'), '1.0.0', true );
     wp_enqueue_script( 'PSC Theme JS', get_stylesheet_directory_uri() . '/js/psc.js', array('jquery'), '1.0.0', true );
 }
 add_action('wp_enqueue_scripts', 'psc_enqueue_files');
