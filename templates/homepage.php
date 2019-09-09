@@ -26,22 +26,22 @@
 			<div class="container">
 				<div class="row">
 					<?php $latestNews = get_field('latest_news'); ?>
-					<div class="col-md-6">
-						<img src="<?php echo $latestNews['latest_news_icon']['url']; ?>" alt="<?php echo $latestNews['latest_news_icon']['alt']; ?>" />
-						<h2 class="h3"><?php echo $latestNews['header']; ?></h2>
+					<div class="col-md-6 text-center">
+						<img class = "mb-3" src="<?php echo $latestNews['latest_news_icon']['url']; ?>" alt="<?php echo $latestNews['latest_news_icon']['alt']; ?>" />
+						<h2 class="h3 mb-3"><?php echo $latestNews['header']; ?></h2>
 						<?php echo $latestNews['content']; ?>
 					</div><!-- .col-md-6 -->
 					<?php $upcomingEvents = get_field('upcoming_events'); ?>
-					<div class="col-md-6">
-						<img src="<?php echo $upcomingEvents['upcoming_events_icon']['url']; ?>" alt="<?php echo $upcomingEvents['upcoming_events_icon']['alt']; ?>" />
-						<h2 class="h3"><?php echo $upcomingEvents['header']; ?></h2>
+					<div class="col-md-6 text-center">
+						<img class = "mb-3" src="<?php echo $upcomingEvents['upcoming_events_icon']['url']; ?>" alt="<?php echo $upcomingEvents['upcoming_events_icon']['alt']; ?>" />
+						<h2 class="h3 mb-3"><?php echo $upcomingEvents['header']; ?></h2>
 						<?php echo $upcomingEvents['content']; ?>
 					</div><!-- .col-md-6 -->
 				</div><!-- .row -->
 			</div><!-- .container -->
 		</section><!-- #sectionTwo -->
 
-		<section id="sectionThree">
+		<section id="sectionThree" class = "p-5">
 			<div class="container">
 				<div class="row">
 					<?php $sectionThree = get_field('section_three'); ?>
@@ -51,7 +51,7 @@
 					<div class="col-md-6">
 						<h3 class = "mb-3"><?php echo $sectionThree['header']; ?></h3>
 						<p class = "text-center"><?php echo $sectionThree['content']; ?></p>
-						<a class = "maroon-button" href="<?php echo $sectionThree['button_link']['url']; ?>"><?php echo $sectionThree['button_text']; ?></a>
+							<a class = "maroon-button d-inline-block" href="<?php echo $sectionThree['button_link']['url']; ?>"><?php echo $sectionThree['button_text']; ?></a>
 					</div><!-- .col-md-6 -->
 				</div><!-- .row -->	
 			</div>
