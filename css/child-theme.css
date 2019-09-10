@@ -10891,6 +10891,11 @@ a {
             align-items: center;
     font-size: 16px; }
 
+.underlined {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #6B0005;
+  margin-bottom: 25px; }
+
 /*------------------------------------------------*/
 /*--------------------[HEADER]--------------------*/
 /*------------------------------------------------*/
@@ -10983,7 +10988,7 @@ footer {
   #homepage #heroDots ul .slick-active button {
     background-color: #707070; }
 
-#sectionTwo {
+#homepage #sectionTwo {
   background-color: #F0F0F0; }
 
 /*------------------------------------------------*/

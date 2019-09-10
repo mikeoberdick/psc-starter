@@ -56,5 +56,7 @@
 				</div><!-- .row -->	
 			</div>
 		</section><!-- #sectionThree -->
+	</main>
+</div>
 
 <?php get_footer(); ?>

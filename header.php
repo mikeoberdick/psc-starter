@@ -87,3 +87,22 @@ $container = get_theme_mod( 'understrap_container_type' );
 			</div><!-- .container -->
 		</nav><!-- .site-navigation -->
 	</div><!-- .wrapper-navbar end -->
+
+	<?php if( !is_front_page() ) { ?>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				<?php
+					if ( function_exists('yoast_breadcrumb') ) {
+			  			yoast_breadcrumb( '<div id="breadcrumbs" class = "mt-3"><p>','</p></div>' );
+					}
+				?>
+				<?php if ( get_field('alternate_page_title') ) { ?>
+				<h1 class = "text-center"><?php the_field('alternate_page_title') ?></h1>
+				<?php } else { ?>	
+				<h1 class = "text-center"><?php the_title() ?></h1>
+			<?php } ?>
+				</div><!-- .col-sm-12 -->
+			</div><!-- .row -->
+		</div><!-- .container -->
+	<?php } ?>
