@@ -52,23 +52,6 @@ if( function_exists('acf_add_options_page') ) {
     
 }
 
-// *** Google Maps Script for ACF *** \\
-function google_maps_scripts () {
-	if (is_page('contact')) {
-	   		wp_enqueue_script( 'google-map', 'https://maps.googleapis.com/maps/api/js?key=API+KEY', array(), '3', true );
-			wp_enqueue_script( 'google-map-init', get_stylesheet_directory_uri() . '/js/google-maps.js', array('google-map', 'jquery'), '0.1', true );
-		}
-	}
-add_action( 'wp_enqueue_scripts', 'google_maps_scripts' );
-
-// *** Register Google Maps API for ACF *** \\
-function my_acf_google_map_api( $api ){
-	$api['key'] = 'API+KEY';
-	return $api;	
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
-
-
 //PSC Custom Dash Footer
 function psc_filter_admin_footer () {
     echo '<span id="dashFooter">Website developed by <a style = "color: #f05a28; text-decoration: none;" href="https://www.pixelstrikecreative.com" target="_blank">PixelStrike Creative</a></span>';
@@ -105,83 +88,3 @@ function psc_remove_sidebars () {
 	unregister_sidebar( 'right-sidebar' );
 }
 add_action( 'widgets_init', 'psc_remove_sidebars', 11 );
-
-// Register Theme Sidebars
-function psc_sidebars() {
-	$args = array(
-        'id'            => 'primary_sidebar',
-        'class'         => 'primary-sidebar',
-        'name'          => 'Sidebar',
-        'description'   => 'This widget area will appear on the side of a page.',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h5 class="widgettitle">',
-        'after_title'   => '</h5>',
-    );
-    register_sidebar( $args );
-
-    $args = array(
-        'id'            => 'footer_1',
-        'class'         => 'footer_1',
-        'name'          => 'Footer 1',
-        'description'   => 'This widget area will appear in the first position of the footer.',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h5 class="widgettitle">',
-        'after_title'   => '</h5>',
-    );
-    register_sidebar( $args );
-
-    $args = array(
-        'id'            => 'footer_2',
-        'class'         => 'footer_2',
-        'name'          => 'Footer 2',
-        'description'   => 'This widget area will appear in the second position of the footer.',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h5 class="widgettitle">',
-        'after_title'   => '</h5>',
-    );
-    register_sidebar( $args );
-
-    $args = array(
-        'id'            => 'footer_3',
-        'class'         => 'footer_3',
-        'name'          => 'Footer 3',
-        'description'   => 'This widget area will appear in the third position of the footer.',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h5 class="widgettitle">',
-        'after_title'   => '</h5>',
-    );
-    register_sidebar( $args );
-
-    $args = array(
-        'id'            => 'footer_4',
-        'class'         => 'footer_4',
-        'name'          => 'Footer 4',
-        'description'   => 'This widget area will appear in the fourth position of the footer.',
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h5 class="widgettitle">',
-        'after_title'   => '</h5>',
-    );
-    register_sidebar( $args );
-
-}
-add_action( 'widgets_init', 'psc_sidebars' );
-
-//Add the theme thumbnail sizes
-add_image_size( 'blog-small', 575, 400, array( 'center', 'center' ) );
-add_image_size( 'blog-large', 1140, 415, array( 'center', 'center' ) );
-
-//Change read more hellip to just dots
-function psc_excerpt_more( $more ) {
-    return '...';
-}
-add_filter( 'excerpt_more', 'psc_excerpt_more' );
-
-function understrap_all_excerpts_get_more_link( $post_excerpt ) {
-    return $post_excerpt . '<p><a class="read-more-link text-uppercase" href="' . get_permalink( get_the_ID() ) . '">' . 'Read More' . '</a></p>';
-}
-add_filter( 'wp_trim_excerpt', 'understrap_all_excerpts_get_more_link' );
