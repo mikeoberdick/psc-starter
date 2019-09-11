@@ -4,7 +4,7 @@
 <div id	= "boardOfGovernors">
 	<main id="main" class="site-main" >
 		<div class = "text-center pt-3">
-			<a class = "maroon-button" href="/board-of-governors">BOARD OF GOVERNORS LOGIN</a>
+			<a class = "maroon-button" href="/board-of-governors-members-only/">BOARD OF GOVERNORS LOGIN</a>
 		</div>
 		
 		<section id="sectionOne" class = "my-5">
