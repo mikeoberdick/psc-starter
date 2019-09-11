@@ -2,51 +2,49 @@
 
 <?php get_header(); ?>
 
-<div id	= "contact">
+<div id	= "contact" class = "mt-5">
 	<main class="site-main" id="main">
 		<section id = "schedule">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-12">
-						<h1 class = "mb-5">Schedule a new patient appointment</h1>
-						<iframe src="https://app.acuityscheduling.com/schedule.php?owner=15640320" width="100%" height="800" frameBorder="0"></iframe><script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>		
-					</div><!-- .col-sm-12 -->
+					<div class="col-md-3">
+						<h2 class="h5 underlined mb-5">IMPI STAFF</h2>
+						<?php if( have_rows('staff') ): ?>
+							<div class="row">
+						<?php while( have_rows('staff') ): the_row(); 
+						
+						// vars
+						$image = get_sub_field('image');
+						$title = get_sub_field('title');
+						$name = get_sub_field('name');
+
+						?>
+						<div class = "staff-member col-6 col-md-12">
+							<img class = "mb-3" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" />
+							<div class = "text-center mb-5">
+								<span class = "d-block h5 mb-0"><?php echo $name; ?></span>
+								<span class = "d-block title"><?php echo $title; ?></span>	
+							</div>
+						</div><!-- .staff-member -->	
+					<?php endwhile; ?>				
+						</div><!-- .row -->
+					<?php endif; ?>
+					</div><!-- .col-md-3 -->
+					<div class="col-md-9">
+						<h3 class="h5 underlined mb-5">MAILING ADDRESS & CONTACT PHONE NUMBER</h3>
+						<div id = "contactInfo" class = "mb-5">
+							<strong class = "d-block">The International Microwave Power Institute</strong>
+							<span><?php echo the_field('address_line_1', 'options'); ?></span>
+							<span class = "d-block mb-3"><?php echo the_field('address_line_2', 'options'); ?></span>
+							<?php $phone = preg_replace('/[^0-9]/', '', get_field('phone_number', 'option')); ?>
+							<a class = "d-inline-block mb-3" href = "tel:<?php echo $phone; ?>"><?php echo the_field('phone_number', 'options'); ?></a>	
+						</div>
+						<h4 class="h5 underlined mb-3">SEND IMPI AN EMAIL</h4>
+						<?php echo do_shortcode('[ninja_form id=1]'); ?>
+					</div><!-- .col-md-9 -->
 				</div><!-- .row -->	
 			</div><!-- .container -->
 		</section><!-- #schedule -->
-		
-		<section id="contactInfo">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<h2 class = "h3 mb-5">Send us a message</h2>
-						<?php echo do_shortcode('[ninja_form id=1]'); ?>
-					</div><!-- .col-md-6 -->
-					<div class="col-md-6">
-						<h2 class = "h3 mb-5">Contact details</h2>
-						<div id = "phone" class = "d-flex align-items-start mb-3">
-							<img class = "mr-3" src="<?php echo get_stylesheet_directory_uri(); ?>/img/phone.png" alt="call <?php echo get_bloginfo('name'); ?>">
-							<?php the_field('phone_number', 'option'); ?>
-						</div><!-- #phone -->
-						<div id = "address" class = "d-flex align-items-start mb-3">
-							<img class = "mr-3" src="<?php echo get_stylesheet_directory_uri(); ?>/img/mail.png" alt="visit <?php echo get_bloginfo('name'); ?>">
-							<div>
-							<?php the_field('address_line_1', 'option'); ?><br/>
-							<?php the_field('address_line_2', 'option'); ?>
-							<a id = "mapLink" class = "d-block mt-2" href="https://goo.gl/maps/9HZwNyWLf6wJrc4U8">Get directions</a>
-							</div>
-						</div><!-- #address -->
-							
-						<div id="map">
-							<?php $map = get_field('google_map_image', 'option'); ?>
-							<img src="<?php echo $map['url']; ?>" alt="<?php echo $map['alt']; ?>">
-						</div><!-- #map -->
-					</div><!-- .col-md-6 -->
-				</div><!-- .row -->
-			</div><!-- .container -->
-		</section><!-- #contactInfo -->
-
-		<?php get_template_part( 'snippets/subscribe' ); ?>
 
 	</main><!-- #main -->
 </div><!-- #contact -->

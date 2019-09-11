@@ -11000,10 +11000,10 @@ footer {
 .nf-form-cont label {
   font-family: "PT Sans", sans-serif;
   font-weight: normal !important;
-  text-transform: uppercase; }
+  color: #707070; }
 
 .nf-form-cont .ninja-forms-req-symbol, .nf-form-cont .nf-error-msg {
-  color: #6B0005 !important; }
+  color: #707070 !important; }
 
 .nf-form-cont .nf-error-msg {
   margin-bottom: 25px; }
