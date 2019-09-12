@@ -17,7 +17,6 @@
 						?>
 					<div class="col-md-4">
 						<?php echo wp_get_attachment_image( $attachment_id); ?>
-						<img src="" alt="">
 						<a target = "_blank" class = "maroon-button" href="<?php echo $file['url']; ?>"><?php echo $name; ?></a>
 					</div><!-- .col-md-4 -->
 					<?php endwhile; ?>
