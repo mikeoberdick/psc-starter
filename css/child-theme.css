@@ -10996,6 +10996,21 @@ footer {
   border-bottom: solid 1px #6B0005;
   margin-bottom: 25px; }
 
+#eventCalendar .event-category {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100px; }
+
+#webinars .webinar-wrapper a {
+  width: 200px; }
+
 #news .news-wrapper {
   padding-bottom: 25px;
   border-bottom: solid 1px #707070;

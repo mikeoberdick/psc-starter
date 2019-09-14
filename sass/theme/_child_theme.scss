@@ -240,6 +240,23 @@ footer {
 	}
 }
 
+#eventCalendar {
+	.event-category {
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    height: 100px;
+	}
+}
+
+#webinars {
+	.webinar-wrapper {
+		a {
+			width: 200px;	
+		}
+	}
+}
+
 #news {
 	.news-wrapper {
 		padding-bottom: 25px;
