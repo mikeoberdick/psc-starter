@@ -10991,6 +10991,21 @@ footer {
 #homepage #sectionTwo {
   background-color: #F0F0F0; }
 
+#impiArchive .archive-item {
+  padding-bottom: 25px;
+  border-bottom: solid 1px #6B0005;
+  margin-bottom: 25px; }
+
+#news .news-wrapper {
+  padding-bottom: 25px;
+  border-bottom: solid 1px #707070;
+  margin-bottom: 25px; }
+
+#jobs .job {
+  padding-bottom: 25px;
+  border-bottom: solid 1px #707070;
+  margin-bottom: 25px; }
+
 /*------------------------------------------------*/
 /*--------------------[FORMS]-------------------*/
 /*------------------------------------------------*/

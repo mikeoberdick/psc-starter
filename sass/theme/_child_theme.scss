@@ -232,6 +232,29 @@ footer {
 	}
 }
 
+#impiArchive {
+	.archive-item {
+		padding-bottom: 25px;
+		border-bottom: solid 1px $maroon;
+		margin-bottom: 25px;
+	}
+}
+
+#news {
+	.news-wrapper {
+		padding-bottom: 25px;
+		border-bottom: solid 1px #707070;
+		margin-bottom: 25px;
+	}
+}
+
+#jobs {
+	.job {
+		padding-bottom: 25px;
+		border-bottom: solid 1px #707070;
+		margin-bottom: 25px;
+	}
+}
 
 /*------------------------------------------------*/
 /*--------------------[FORMS]-------------------*/

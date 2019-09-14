@@ -29,11 +29,5 @@ $(document).ready(function() {
     $hamburger.toggleClass("is-active");
   });
 
-//
-
-///////////////////////////////////////////////////
-//Disable the parent pages link in breadcrumbs
-$('#breadcrumbs a[href$="about/"], #breadcrumbs a[href$="membership/"], #breadcrumbs a[href$="events/"], #breadcrumbs a[href$="publications/"], #breadcrumbs a[href$="news/"]' ).removeAttr("href").css("cursor","default");
-
 //end of file
 });
