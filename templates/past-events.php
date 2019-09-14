@@ -1,37 +1,21 @@
-<?php /* Template Name: Event Calendar */ ?>
+<?php /* Template Name: Past Events */ ?>
 
 <?php get_header(); ?>
 
-<div id	= "eventCalendar">
+<div id	= "pastEvents">
 	<main id="main" class="site-main" >
 		<section id="sectionOne" class = "mt-5 pb-5">
 			<div class="container">
-				<div class="row mb-5">
-					<div class="col-sm-12 text-center mb-3">
-						<?php the_field('content'); ?>
-					</div><!-- .col-sm-12 -->
-					<div class="col-sm-4">
-						<div><a class = "event-category maroon-button text-center" href="#">Symposium</a></div>
-					</div><!-- .col-sm-4 -->
-					<div class="col-sm-4">
-						<div><a class = "event-category maroon-button text-center" href="#">Fall Seminar</a></div>
-					</div><!-- .col-sm-4 -->
-					<div class="col-sm-4">
-						<div><a class = "event-category maroon-button text-center" href="#">Webinars</a></div>
-					</div><!-- .col-sm-4 -->
-				</div><!-- .row -->
-				<div class="row mb-5">
-					<div class="col-sm-12">
-						<h2 class="h4 text-center underlined">UPCOMING EVENTS</h2>
-						<?php echo do_shortcode('[eo_fullcalendar]'); ?>
-					</div><!-- .col-sm-12 -->
-				</div><!-- .row -->
+
 					<?php
-					//Get upcoming Events for Listing
+					//Get past Events
 					$events = eo_get_events(array(
-					     'event_start_after'=>'today',
-					     'showpastevents'=>false,//Will be deprecated, but set it to true to play it safe.
+					     'event_start_before'=>'today',
+					     'orderby'=> 'eventstart',
+					     'order' => 'DESC',
+					     'showpastevents'=>true,//Will be deprecated, but set it to true to play it safe.
 					  ));
+
 
 						if( $events ) {
 						    global $post;
@@ -65,6 +49,6 @@
 			</div><!-- .container -->
 		</section><!-- #sectionTwo -->
 	</main>
-</div><!-- #eventCalendar -->
+</div><!-- #pastEvents -->
 
 <?php get_footer(); ?>
