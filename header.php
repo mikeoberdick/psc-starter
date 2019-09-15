@@ -99,6 +99,8 @@ $container = get_theme_mod( 'understrap_container_type' );
 				?>
 				<?php if ( get_field('alternate_page_title') ) { ?>
 				<h1 class = "text-center"><?php the_field('alternate_page_title') ?></h1>
+				<?php } elseif ( is_singular( 'event' ) ) { ?>
+					<h1 class = "text-center">IMPI Events</h1>
 				<?php } else { ?>	
 				<h1 class = "text-center"><?php the_title() ?></h1>
 			<?php } ?>
