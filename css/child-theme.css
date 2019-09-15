@@ -10875,6 +10875,8 @@ a {
 .social-link {
   color: #FFFFFF;
   text-decoration: none !important; }
+  .social-link:hover {
+    color: #FFFFFF; }
   .social-link i {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10944,6 +10946,8 @@ footer {
     text-decoration: underline; }
   footer .social-link {
     color: #6B0005; }
+    footer .social-link:hover {
+      color: #6B0005; }
     footer .social-link i {
       height: 45px;
       width: 45px;

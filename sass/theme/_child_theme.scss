@@ -92,6 +92,9 @@ a {
 .social-link {
 	color: $white;
 	text-decoration: none !important;
+	&:hover {
+		color: $white;
+	}
 	i {
 		display: flex;
 	    padding: 15px;
@@ -177,6 +180,9 @@ footer {
 	}
 	.social-link {
 		color: $maroon;
+		&:hover {
+			color: $maroon;
+		}
 		i {
 			height: 45px;
 			width: 45px;

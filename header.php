@@ -40,6 +40,10 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
 
+	<!-- NEED TO REMOVE ON PRODUCTION -->
+	<meta name="robots" content="noindex">
+	<!-- NEED TO REMOVE ON PRODUCTION -->
+	
 	<?php wp_head(); ?>
 	
 </head>
@@ -56,12 +60,6 @@ $container = get_theme_mod( 'understrap_container_type' );
 				<img id = "headerLogo" src = "<?php echo $image['url']; ?>" alt = "<?php echo esc_attr( get_bloginfo( 'name') ); ?>">
 				</a>	
 			</div><!-- .col-sm-4 -->
-			<div class="col-sm-8 d-flex align-items-start justify-content-end">
-				<a class = "mr-2" href="#">MEMBERS LOGIN</a>
-				<a class = "social-link facebook mr-2" target = "_blank" href="<?php the_field('facebook_url', 'options') ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-				<a class = "social-link twitter mr-2" target = "_blank" href="<?php the_field('twitter_url', 'options') ?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-				<a class = "social-link linkedin" target = "_blank" href="<?php the_field('linkedin_url', 'options') ?>"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-			</div><!-- .col-sm-8 -->
 		</div><!-- .row -->
 	</header><!-- .container -->
 
@@ -87,24 +85,3 @@ $container = get_theme_mod( 'understrap_container_type' );
 			</div><!-- .container -->
 		</nav><!-- .site-navigation -->
 	</div><!-- .wrapper-navbar end -->
-
-	<?php if( !is_front_page() ) { ?>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-				<?php
-					if ( function_exists('yoast_breadcrumb') ) {
-			  			yoast_breadcrumb( '<div id="breadcrumbs" class = "mt-3"><p>','</p></div>' );
-					}
-				?>
-				<?php if ( get_field('alternate_page_title') ) { ?>
-				<h1 class = "text-center"><?php the_field('alternate_page_title') ?></h1>
-				<?php } elseif ( is_singular( 'event' ) ) { ?>
-					<h1 class = "text-center">IMPI Events</h1>
-				<?php } else { ?>	
-				<h1 class = "text-center"><?php the_title() ?></h1>
-			<?php } ?>
-				</div><!-- .col-sm-12 -->
-			</div><!-- .row -->
-		</div><!-- .container -->
-	<?php } ?>

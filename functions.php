@@ -33,10 +33,10 @@ add_filter('widget_text', 'do_shortcode');
 
 // *** PSC Theme Files *** \\
 function psc_enqueue_files () {
-    wp_enqueue_style( 'Slick CSS', get_stylesheet_directory_uri() . '/slick/slick.css' );
-    wp_enqueue_style( 'Slick Theme CSS', get_stylesheet_directory_uri() . '/slick/slick-theme.css' );
-    wp_enqueue_style( 'Google Fonts', 'https://fonts.googleapis.com/css?family=PT+Sans&display=swap' );
-    wp_enqueue_script( 'Slick JS', get_stylesheet_directory_uri() . '/slick/slick.min.js', array('jquery'), '1.0.0', true );
+    //wp_enqueue_style( 'Slick CSS', get_stylesheet_directory_uri() . '/slick/slick.css' );
+    //wp_enqueue_style( 'Slick Theme CSS', get_stylesheet_directory_uri() . '/slick/slick-theme.css' );
+    //wp_enqueue_style( 'Google Fonts', '###' );
+    //wp_enqueue_script( 'Slick JS', get_stylesheet_directory_uri() . '/slick/slick.min.js', array('jquery'), '1.0.0', true );
     wp_enqueue_script( 'PSC Theme JS', get_stylesheet_directory_uri() . '/js/psc.js', array('jquery'), '1.0.0', true );
 }
 add_action('wp_enqueue_scripts', 'psc_enqueue_files');
@@ -48,8 +48,7 @@ if( function_exists('acf_add_options_page') ) {
 		'page_title' 	=> 'Company Profile',
 		'menu_title'	=> 'Company Profile',
 		'menu_slug' 	=> 'company-profile'
-	));
-    
+	)); 
 }
 
 //PSC Custom Dash Footer
@@ -76,8 +75,6 @@ function psc_admin_css() {
 }
 add_action('admin_head', 'psc_admin_css');
 
-// *** Widgets *** \\
-
 // Deregister Sidebars
 function psc_remove_sidebars () {
 	unregister_sidebar( 'hero' );
@@ -88,49 +85,3 @@ function psc_remove_sidebars () {
 	unregister_sidebar( 'right-sidebar' );
 }
 add_action( 'widgets_init', 'psc_remove_sidebars', 11 );
-
-function news_post_type() {
-// Set UI labels
-  $labels = array(
-    'name'                => 'News',
-    'singular_name'       => 'News',
-    'menu_name'           => 'News',
-    'parent_item_colon'   => 'Parent News',
-    'all_items'           => 'All News',
-    'view_item'           => 'View News',
-    'add_new_item'        => 'Add New News',
-    'add_new'             => 'Add New',
-    'edit_item'           => 'Edit News',
-    'update_item'         => 'Update News',
-    'search_items'        => 'Search News',
-    'not_found'           => 'No News Found',
-    'not_found_in_trash'  => 'No News Found in Trash',
-  );
-  
-// Set other options for Custom Post Type
-  $args = array(
-    'label'               => 'news',
-    'description'         => 'News',
-    'labels'              => $labels,
-    // Features this CPT supports in Post Editor
-    'supports'            => array( 'title', 'author', 'thumbnail', 'editor' ),
-    'hierarchical'        => false,
-    'public'              => true,
-    'show_ui'             => true,
-    'show_in_menu'        => true,
-    'show_in_nav_menus'   => true,
-    'show_in_admin_bar'   => true,
-    'menu_position'       => 5,
-    'can_export'          => true,
-    'has_archive'         => true,
-    'exclude_from_search' => false,
-    'publicly_queryable'  => true,
-    'capability_type'     => 'page',
-  );
-  
-  // Registering your Custom Post Type
-  register_post_type( 'News', $args );
-}
-
-//Project Custom Post Type
-add_action( 'init', 'news_post_type', 0 );
