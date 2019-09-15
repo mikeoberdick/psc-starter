@@ -1,52 +1,76 @@
 <?php /* Template Name: Contact */ ?>
 
 <?php get_header(); ?>
-
-<div id	= "contact" class = "mt-5">
-	<main class="site-main" id="main">
-		<section id = "schedule">
+<div id="contact">
+	<main class="site-main" id="main">	
+		<?php $hero = get_field('hero'); ?>
+		<section class="hero container-fluid position-relative" style = "background: url('<?php echo $hero['image']['url']; ?>');">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3">
-						<h2 class="h5 underlined mb-5">IMPI STAFF</h2>
-						<?php if( have_rows('staff') ): ?>
-							<div class="row">
-						<?php while( have_rows('staff') ): the_row(); 
-						
-						// vars
-						$image = get_sub_field('image');
-						$title = get_sub_field('title');
-						$name = get_sub_field('name');
-
-						?>
-						<div class = "staff-member col-6 col-md-12">
-							<img class = "mb-3" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" />
-							<div class = "text-center mb-5">
-								<span class = "d-block h5 mb-0"><?php echo $name; ?></span>
-								<span class = "d-block title"><?php echo $title; ?></span>	
-							</div>
-						</div><!-- .staff-member -->	
-					<?php endwhile; ?>				
-						</div><!-- .row -->
-					<?php endif; ?>
-					</div><!-- .col-md-3 -->
-					<div class="col-md-9">
-						<h3 class="h5 underlined mb-5">MAILING ADDRESS & CONTACT PHONE NUMBER</h3>
-						<div id = "contactInfo" class = "mb-5">
-							<strong class = "d-block">The International Microwave Power Institute</strong>
-							<span><?php echo the_field('address_line_1', 'options'); ?></span>
-							<span class = "d-block mb-3"><?php echo the_field('address_line_2', 'options'); ?></span>
-							<?php $phone = preg_replace('/[^0-9]/', '', get_field('phone_number', 'option')); ?>
-							<a class = "d-inline-block mb-3" href = "tel:<?php echo $phone; ?>"><?php echo the_field('phone_number', 'options'); ?></a>	
-						</div>
-						<h4 class="h5 underlined mb-3">SEND IMPI AN EMAIL</h4>
-						<?php echo do_shortcode('[ninja_form id=1]'); ?>
-					</div><!-- .col-md-9 -->
+					<div class="col-sm-12">
+						<h1 class = "text-white mb-0"><?php echo $hero['header']; ?></h1>
+					</div><!-- .col-sm-12 -->
 				</div><!-- .row -->	
-			</div><!-- .container -->
-		</section><!-- #schedule -->
+			</div>
+		</section><!-- .container-fluid -->
 
+		<section>
+			<div class="container mt-5 pb-5">
+				<div class="row">
+					<div class="col-md-5">
+						<h2 class="h3 mb-3">
+							Send us a message</h2>
+						<!-- .h3 mb-3 -->
+						<?php echo do_shortcode('[ninja_form id=1]'); ?>
+					</div><!-- .col-md-5 -->
+					<div id = "waysToConnect" class="offset-md-1 col-md-6">
+						<?php $contact = get_field('contact_information');
+						//variables
+							$phone_icon = $contact['phone_icon']['url'];
+							$phone = get_field('phone', 'option');
+							$email = get_field('email', 'option');
+							$hours_icon = $contact['hours_icon']['url'];
+							$hours = get_field('hours', 'option');
+							$address_icon = $contact['address_icon']['url'];
+							$address1 = get_field('address_1', 'option');
+							$address2 = get_field('address_2', 'option');
+							$map = $contact['map_image']['url'];
+						?>
+						<div id = "talk" class="row mb-4">
+							<div class="col-sm-2">
+								<img src = "<?php echo $phone_icon; ?>">
+							</div><!-- .col-sm-2 -->
+							<div class="col-sm-10">
+								<h5>Let's Talk</h5>
+								<a href = "tel:<?php echo $phone ?>"><?php echo $phone; ?></a>
+								<a href = "mailto:<?php echo $email ?>"><?php echo $email; ?></a>
+							</div><!-- .col-sm-10 -->
+						</div><!-- .row -->
+						<div id = "hours" class="row mb-4">
+							<div class="col-sm-2">
+								<img src = "<?php echo $hours_icon; ?>">
+							</div><!-- .col-sm-2 -->
+							<div class="col-sm-10">
+								<h5>Hours</h5>
+								<p class = "mb-0"><?php echo $hours; ?></p>
+							</div><!-- .col-sm-10 -->
+						</div><!-- .row -->
+						<div id = "address" class="row">
+							<div class="col-sm-2">
+								<img src = "<?php echo $address_icon; ?>">
+							</div><!-- .col-sm-2 -->
+							<div class="col-sm-10">
+								<h5>Address</h5>
+								<p><?php echo $address1; ?><br />
+								<?php echo $address2; ?><a class = "ml-2" target = "_blank" href="https://goo.gl/maps/RSKvXdwKdrCBTehD9">Map</a></p>
+							</div><!-- .col-sm-10 -->
+						</div><!-- .row -->
+						<a target = "_blank" href="https://goo.gl/maps/RSKvXdwKdrCBTehD9">
+						<img src="<?php echo $map; ?>" alt="Directions to Pixelstrike Creative"></img></a>
+					</div><!-- .col-md-6 -->
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</section>
 	</main><!-- #main -->
 </div><!-- #contact -->
-
 <?php get_footer(); ?>

@@ -2,61 +2,117 @@
 
 <?php get_header(); ?>
 
-<div id	= "homepage">
-	<main id="main" class="site-main" >
-		<?php if ( have_rows('slider') ) : ?>
-		<section id = "heroSliderWrapper" class = "container">
-			<div id="heroSlider">
-				<?php while( have_rows('slider') ): the_row();
-					$image = get_sub_field('image');
-					$caption = get_sub_field('caption');
-					?>
-
-					<div class = "slide">
-						<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" />
-						<p class = "slider-caption"><?php echo $caption; ?></p>
-					</div><!-- .slide -->
-				<?php endwhile; ?>
-			</div><!-- #heroSlider -->
-			<div id="heroDots"></div><!-- #heroDots -->
-		</section><!-- #heroSliderWrapper -->
-		<?php endif; ?>
-
-		<section id="sectionTwo" class = "mt-5 py-5">
+<div id="homepage">
+	<main class="site-main" id="main">
+		
+		<?php $hero = get_field('hero'); ?>
+		<section class="hero container-fluid position-relative" style = "background: url('<?php echo $hero['image']['url']; ?>');">
 			<div class="container">
 				<div class="row">
-					<?php $latestNews = get_field('latest_news'); ?>
-					<div class="col-md-6 text-center">
-						<img class = "mb-3" src="<?php echo $latestNews['latest_news_icon']['url']; ?>" alt="<?php echo $latestNews['latest_news_icon']['alt']; ?>" />
-						<h2 class="h3 mb-3"><?php echo $latestNews['header']; ?></h2>
-						<?php echo $latestNews['content']; ?>
-					</div><!-- .col-md-6 -->
-					<?php $upcomingEvents = get_field('upcoming_events'); ?>
-					<div class="col-md-6 text-center">
-						<img class = "mb-3" src="<?php echo $upcomingEvents['upcoming_events_icon']['url']; ?>" alt="<?php echo $upcomingEvents['upcoming_events_icon']['alt']; ?>" />
-						<h2 class="h3 mb-3"><?php echo $upcomingEvents['header']; ?></h2>
-						<?php echo $upcomingEvents['content']; ?>
-					</div><!-- .col-md-6 -->
-				</div><!-- .row -->
-			</div><!-- .container -->
-		</section><!-- #sectionTwo -->
-
-		<section id="sectionThree" class = "p-5">
-			<div class="container">
-				<div class="row">
-					<?php $sectionThree = get_field('section_three'); ?>
-					<div class="col-md-6">
-						<img src="<?php echo $sectionThree['image']['url']; ?>" alt="<?php echo $sectionThree['image']['url']; ?>">
-					</div><!-- .col-md-6 -->
-					<div class="col-md-6">
-						<h3 class = "mb-3"><?php echo $sectionThree['header']; ?></h3>
-						<p class = "text-center"><?php echo $sectionThree['content']; ?></p>
-							<a class = "maroon-button d-inline-block" href="<?php echo $sectionThree['button_link']['url']; ?>"><?php echo $sectionThree['button_text']; ?></a>
-					</div><!-- .col-md-6 -->
+					<div class="col-sm-12">
+						<h1 class = "mb-4 font-weight-bold text-white"><?php echo $hero['text']; ?></h1>
+						<a href = '<?php echo $hero['button_link']; ?>'>
+							<button role = 'button' class = 'btn btn-white'><?php echo $hero['button_text']; ?></button>
+						</a><!-- .btn-primary -->
+					</div><!-- .col-sm-12 -->
 				</div><!-- .row -->	
 			</div>
-		</section><!-- #sectionThree -->
-	</main>
-</div>
+		</section><!-- .container-fluid -->
+
+		<section id="callouts" class = "mb-5">
+			<div class="container">
+				<div class="row">
+				<?php if( have_rows('callouts') ): ?>
+					<?php while( have_rows('callouts') ): the_row(); 
+					// vars
+						$color = get_sub_field('background_color');
+						$icon = get_sub_field('icon');
+						$header = get_sub_field('header');
+						$link = get_sub_field('link');
+					?>
+					<div class = "col-sm-6 col-lg-3">
+						<a href="<?php echo $link; ?>">
+							<div class="callout-wrapper">
+								<div class="callout" style = "background-color: <?php echo $color; ?>">
+									<img class = "mb-3" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt'] ?>">
+									<h2 class = "h4"><?php echo $header; ?></h2>
+								</div><!-- .callout -->
+							</div>
+						</a>
+					</div><!-- .col-md-3 -->
+					<?php endwhile; endif; ?>
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</section><!-- #callouts -->
+
+		<section id="sectionOne" class = "mb-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<?php $sectionOne = get_field('section_1'); ?>
+						<h3 class = "mb-5"><?php echo $sectionOne['header']; ?></h3>
+						<p class = "text-center"><?php echo $sectionOne['text']; ?></p>
+					</div><!-- .col-sm-12 -->
+				</div><!-- .row -->	
+			</div>
+		</section><!-- #sectionOne -->
+		
+		
+		<section id="testimonials" class = "pt-5 pb-5 mb-5">
+			<h4 class = "h3 text-center mb-3 mb-md-5"><?php the_field('testimonials_section_header');; ?></h4>
+			<div class="container">
+				<div class="row">
+					<?php $i = 0; ?>
+					<?php while ( have_rows( 'testimonials' ) ) : the_row(); ?>
+						<div class="single-quote col-sm-1">
+							<span>"</span>
+						</div>
+						<div class="testimonial col-sm-5">		
+							<p><?php the_sub_field('text'); ?></p>
+							<p class = "font-weight-bold"><small><?php the_sub_field('author'); ?></small></p>
+						</div><!-- 	.col-sm-5 -->
+						<?php if ($i == 1) : ?>
+						</div><!-- .row -->
+						<div class = "row">
+						<?php endif; ?>
+						<?php $i++; ?>
+			     	<?php endwhile;	?>
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</section><!-- #testimonials -->
+
+		<section id="hpBlog" class = "pb-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 class = "h3 text-center mb-5"><?php the_field('blog_section_header'); ?></h5>
+					</div><!-- .col.sm-12 -->
+				</div><!-- .row -->
+				
+				<div class="row">
+					<?php $hp_query = new WP_Query( 'post_type=post&posts_per_page=2' ); ?>
+					<?php if ( $hp_query->have_posts() ) : while ( $hp_query->have_posts() ) : $hp_query->the_post(); ?>
+						<a class = "d-flex flex-column" href="<?php the_permalink(); ?>">
+							<div class = "col-md-6 d-flex">
+								<div class="hp-blog-post d-flex">
+									<div><?php the_post_thumbnail('hp_blog'); ?></div>
+									<div class="hp-post-meta p-3 pb-0">
+										<h5 class = "mb-0"><?php the_title(); ?></h5>
+										<p class = "date mb-0"><?php the_date(); ?></p>
+										<div class = "excerpt mb-0"><?php the_excerpt(); ?></div>
+									</div><!-- .hp-post-meta -->
+									<div class = "p-3 mt-auto">
+										<button role = 'button' class = 'btn btn-orange'>Read</button>
+									</div>
+							</a>
+						</div><!-- .hp-blog-post -->
+	                </div><!-- .hp-blog-post -->
+					<?php endwhile; ?>
+					<?php endif; ?>
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</section><!-- #hpBlog -->
+	</main><!-- #main -->
+</div><!-- #homepage -->
 
 <?php get_footer(); ?>
