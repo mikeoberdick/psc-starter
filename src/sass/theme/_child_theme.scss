@@ -1,8 +1,9 @@
 /*------------------------------------------------*/
-/*-------------------[GENERAL STYLES]----------------------*/
+/*-------------------[TYPOGRAPHY]----------------------*/
 /*------------------------------------------------*/
-:root {
-  scroll-behavior: auto;
+
+html {
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -12,52 +13,61 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 1.5rem;
 }
 
-//ADD ABSOLUTE FONT SIZES FOR DESKTOP
+//FLUID TYPOGRAPHY
 h1 {
-  @include xdFontSize(26);
-  @include xdLineHeight(44);
-  @include media-breakpoint-up(lg) {
-    @include xdFontSize(65);
-    @include xdLineHeight(66);
-  }
+  font-size: $mod_1*$mod_1*$mod_1*$mod_1 *1rem; 
+  @include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 }
 h2 {
-  @include xdFontSize(24);
-  @include xdLineHeight(35);
-  @include media-breakpoint-up(lg) {
-    @include xdFontSize(46);
-    @include xdLineHeight(56);
-  }
+  font-size: $mod_1*$mod_1*$mod_1 *1rem; 
+  @include fluid-type($min_width, $max_width, $mod_1*$mod_1*$mod_1 *$min_font, $mod_2*$mod_2*$mod_2 *$min_font);
 }
 h3 {
-  @include xdFontSize(22);
-  @include xdLineHeight(35);
+  font-size: $mod_1*$mod_1 *1rem;
+  @include fluid-type($min_width, $max_width, $mod_1*$mod_1 *$min_font, $mod_2*$mod_2 *$min_font);
+}
+
+//ADD ABSOLUTE FONT SIZES FOR DESKTOP
+h1, .h1 {
   @include media-breakpoint-up(lg) {
-    @include xdFontSize(34);
-    @include xdLineHeight(48);
+    font-size: 64px;
   }
 }
-h4 {
-  @include xdFontSize(20);
-  @include xdLineHeight(32);
+h2, .h2 {
   @include media-breakpoint-up(lg) {
-    @include xdFontSize(24);
-    @include xdLineHeight(35);
+    font-size: 48px;
+  }
+}
+h3, .h3 {
+  @include media-breakpoint-up(lg) {
+    font-size: 36px;
+  }
+}
+h4, .h4 {
+  @include media-breakpoint-up(lg) {
+    font-size: 32px;
   }
 }
 
 body {
-	color: #000;
+  color: #000;
+  font-weight: 300;
   font-family: $open-sans;
   p {
-    @include xdFontSize(18);
-    @include xdLineHeight(24);
+    font-size: 16px;
     @include media-breakpoint-up(lg) {
-      @include xdFontSize(24);
-      @include xdLineHeight(34);
+      font-size: 20px;
     }
   }
 }
+
+.fa-times-thin:before {
+  content: "×";
+}
+
+/*------------------------------------------------*/
+/*-------------------[STRUCTURE]----------------------*/
+/*------------------------------------------------*/
 
 .wysiwyg {
   h1, h2, h3, h4, h5, p {
@@ -116,22 +126,60 @@ body {
   }
 }
 
+.page-wrapper {
+  section:not(:last-of-type) {
+    margin-bottom: 4.5rem !important;
+  }
+}
+
+.embed-container {
+    position: relative; 
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    iframe, object, embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;  
+    }
+}
+
+.hero {
+  margin-bottom: 50px;
+}
+
+/*------------------------------------------------*/
+/*-------------------[IMAGES]----------------------*/
+/*------------------------------------------------*/
+
 .bg-image {
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
 }
 
+img[data-lazyloaded]{
+    opacity: 0;
+}
+
+img.litespeed-loaded{
+    -webkit-transition: opacity .5s linear 0.2s;
+    -moz-transition: opacity .5s linear 0.2s;
+    transition: opacity .5s linear 0.2s;
+    opacity: 1;
+}
+
+/*------------------------------------------------*/
+/*-------------------[GENERAL]----------------------*/
+/*------------------------------------------------*/
+
 hr {
   opacity: 1;
   height: 3px !important;
   background-color: $black;
-}
-
-.page-wrapper {
-  section:not(:last-of-type) {
-    margin-bottom: 4.5rem !important;
-  }
 }
 
 /*------------------------------------------------*/
@@ -196,7 +244,7 @@ a {
     padding-top: 20px;
     padding-bottom: 20px;
     .container {
-      @media only screen and (max-width: 399px) {
+      @include media-breakpoint-down(lg) {
         justify-content: center;
       }
       #main-menu {
@@ -271,34 +319,23 @@ a {
         top: 30px;
       }
     }
-    &.open {
-      span {
-        &:nth-child(1) {
-          top: 18px;
-          width: 0%;
-          left: 50%; 
-        }
-        &:nth-child(2) {
-          transform: rotate(45deg);
-        }
-        &:nth-child(3) {
-          transform: rotate(-45deg);
-        }
-        &:nth-child(4) {
-          top: 18px;
-          width: 0%;
-          left: 50%;
-        }
-      }
-    }
   }
   &:focus {
     box-shadow: none;
   }
 }
+
 /*------------------------------------------------*/
 /*--------------------[MODAL NAV]----------------------*/
 /*------------------------------------------------*/
+
+.offcanvas-start {
+  width: 100%;
+  @media only screen and (min-width: 576px) {
+    width: 85%;
+  }
+}
+
 #offcanvasNavigation {
   #modalTop {
     display: flex;
@@ -333,6 +370,7 @@ a {
 /*------------------------------------------------*/
 /*--------------------[FORMS]----------------------*/
 /*------------------------------------------------*/
+
 .nf-form-content {
   padding: 0 !important;
 }
@@ -386,31 +424,12 @@ form ::placeholder, form select {
   border: solid 3px $black;
   padding: 15px 15px 0 15px;
   margin-bottom: 15px;
-  border-radius: 25px;
 }
-/*------------------------------------------------*/
-/*--------------------[REUSABLE STYLES]----------------------*/
-/*------------------------------------------------*/
-.embed-container {
-    position: relative; 
-    padding-bottom: 56.25%;
-    overflow: hidden;
-    max-width: 100%;
-    height: auto;
-    iframe, object, embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;  
-    }
-}
-.hero {
-  margin-bottom: 50px;
-}
+
 /*------------------------------------------------*/
 /*--------------------[HOME]----------------------*/
 /*------------------------------------------------*/
+
 #homepage {
 
 }
@@ -418,6 +437,7 @@ form ::placeholder, form select {
 /*------------------------------------------------*/
 /*--------------------[ABOUT]---------------------*/
 /*------------------------------------------------*/
+
 #about {
   
 }
@@ -425,6 +445,7 @@ form ::placeholder, form select {
 /*------------------------------------------------*/
 /*--------------------[FAQ]---------------------*/
 /*------------------------------------------------*/
+
 #faq {
   #sectionTwo {
     background-color: #fff;
@@ -489,6 +510,7 @@ form ::placeholder, form select {
 /*------------------------------------------------*/
 /*--------------------[CONTACT]---------------------*/
 /*------------------------------------------------*/
+
 #contact {
   
 }
@@ -496,6 +518,7 @@ form ::placeholder, form select {
 /*------------------------------------------------*/
 /*--------------------[BLOG]---------------------*/
 /*------------------------------------------------*/
+
 .blog {
   
 }
@@ -503,6 +526,7 @@ form ::placeholder, form select {
 /*------------------------------------------------*/
 /*--------------------[SINGLE POST]---------------------*/
 /*------------------------------------------------*/
+
 .single {
 
 }
@@ -536,9 +560,45 @@ form ::placeholder, form select {
     }
   }
 }
+
+/*------------------------------------------------*/
+/*--------------------[404]----------------------*/
+/*------------------------------------------------*/
+
+#fourOhFour {
+
+}
+
+/*------------------------------------------------*/
+/*-------------------[BACK TO TOP]---------------------*/
+/*------------------------------------------------*/
+
+#backToTop {
+  position: fixed;
+  bottom: -50px;
+  right: 20px;
+  background-color: $ltBlue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  &.active {
+    bottom: 20px;
+  }
+}
+
+#backToTop:hover {
+  background-color: lighten($ltBlue, 10%) !important;
+}
+
 /*------------------------------------------------*/
 /*-------------------[FOOTER]---------------------*/
 /*------------------------------------------------*/
+
 #wrapperFooter {
   background: $black;
   color: #fff;
@@ -575,6 +635,7 @@ form ::placeholder, form select {
 
   }
 }
+
 #cookieNotification {
   display: none;
   text-align: center;

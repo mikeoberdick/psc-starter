@@ -35,73 +35,64 @@ jQuery(function ($) {
         $(this).wrap('<div class="iframe-wrapper"></div>');
     });
 
-  //********** COOKIE CONSENT **********//
-      //Set the cookie when consent is provided for cookies
-      $('#cookieNotification #accept').on('click', function () {
-        setTimeout(function () {
-          $('#cookieNotification').fadeOut();
-        }, 500);
-        setCookie('cookie_consent', true, 30);
-      }); //Behavior for showing/hiding the cookie consent
+  // COOKIE CONSENT
+    //Set the cookie when consent is provided for cookies
+    $('#cookieNotification #accept').on('click', function () {
+      setTimeout(function () {
+        $('#cookieNotification').fadeOut();
+      }, 500);
+      setCookie('cookie_consent', true, 30);
+    }); //Behavior for showing/hiding the cookie consent
 
-      if (getCookie('cookie_consent') != 'true') {
-        $('#cookieNotification').fadeIn();
-      }
+    if (getCookie('cookie_consent') != 'true') {
+      $('#cookieNotification').fadeIn();
+    }
 
   
-  /////////////////  PUSH DOWN FOOTER  \\\\\\\\\\\\\\\\\
-	$('#js-heightControl').css('height', $(window).height() - $('html').height() +'px');
+  // PUSH DOWN FOOTER
+	 $('#js-heightControl').css('height', $(window).height() - $('html').height() +'px');
 
-  ///////////////// CLOSE THE MOBILE NAV LINK ON LINK TO A PAGE  \\\\\\\\\\\\\\\\\
-  $('.dropdown-menu a').on('click', function() {
-    $('#modalNav').modal('hide');
-  });
+  // CLOSE THE MOBILE NAV LINK ON LINK TO A PAGE
+    $('.dropdown-menu a').on('click', function() {
+      $('#modalNav').modal('hide');
+    });
 
-  ///////////////// MOBILE MENU NAV ICON ANIMATION  \\\\\\\\\\\\\\\\\
-  $('#navIcon').click(function(){
-    $(this).toggleClass('open');
-  });
+  // BACK TO TOP
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 1000) {
+        $('#backToTop').addClass('active'); // Show button with fade
+      } else {
+        $('#backToTop').removeClass('active'); // Hide button with fade
+      }
+    });
 
-  ///////////////// PUSH IMAGE TO EDGE  \\\\\\\\\\\\\\\\\
-  if ( $(window).width() >= 992 ) {
-    var offset = $('#content .container').offset();
-      $('.offset-left').css('padding-left', ( Math.ceil(offset.left) + 15 ) + 'px');
-      $('.offset-right').css('padding-right', ( Math.ceil(offset.left) + 15 ) + 'px');
+    // Smooth scroll to top when the button is clicked
+    $('#backToTop').click(function() {
+      $('html, body').animate({ scrollTop: 0 }, 0, 'linear');
+    });
 
-      //Force a section to be the width of column plus the gutter (left or right)
-      var pushToLeftWidth = $('.push-to-left-edge').outerWidth();
-      $('.push-to-left-edge .outer-wrapper').css('width', (Math.ceil(offset.left) - 15 + pushToLeftWidth ) + 'px');
+  // PUSH IMAGE TO EDGE
+    if ( $(window).width() >= 992 ) {
+      var offset = $('#content .container').offset();
+        $('.offset-left').css('padding-left', ( Math.ceil(offset.left) + 15 ) + 'px');
+        $('.offset-right').css('padding-right', ( Math.ceil(offset.left) + 15 ) + 'px');
 
-      //Don't subtract the 15 pixels for padding due to the checkerboard pattern on the image above
-      $('#homepage #sectionFour .push-to-left-edge .outer-wrapper').css('width', (Math.ceil(offset.left) + 12 + pushToLeftWidth ) + 'px');
+        //Force a section to be the width of column plus the gutter (left or right)
+        var pushToLeftWidth = $('.push-to-left-edge').outerWidth();
+        $('.push-to-left-edge .outer-wrapper').css('width', (Math.ceil(offset.left) - 15 + pushToLeftWidth ) + 'px');
 
-      $('.push-to-right-edge').each(function() {
-        var pushToRightWidth = $(this).outerWidth();
-        var height = ($(this).prev().height() < 450) ? 450 : $(this).prev().height(); //Check to see if the section is less than 450 and if it is then we can set the image min-height to 450 otherwise explicitly set it to the height of the section
-        $(this).find('.outer-wrapper').css({'width':(Math.ceil(offset.left) - 15 + pushToRightWidth ) + 'px', 'min-height':height});
-      });
+        //Don't subtract the 15 pixels for padding due to the checkerboard pattern on the image above
+        $('#homepage #sectionFour .push-to-left-edge .outer-wrapper').css('width', (Math.ceil(offset.left) + 12 + pushToLeftWidth ) + 'px');
 
-  }
+        $('.push-to-right-edge').each(function() {
+          var pushToRightWidth = $(this).outerWidth();
+          var height = ($(this).prev().height() < 450) ? 450 : $(this).prev().height(); //Check to see if the section is less than 450 and if it is then we can set the image min-height to 450 otherwise explicitly set it to the height of the section
+          $(this).find('.outer-wrapper').css({'width':(Math.ceil(offset.left) - 15 + pushToRightWidth ) + 'px', 'min-height':height});
+        });
+    }
 
-  ///////////////// MOVE THE HERO CONTENT DOWN BASED ON ABSOLUTE POSITIONED HEADER \\\\\\\\\\\\\\\\\
-  //var headerHeight = $('#wrapper-navbar').height();
-  //$('.hero .inner-container').css('margin-top', (headerHeight/2) + 'px');
-
-  ///////////////// CONTAIN CONTAINERLESS SECTIONS ON MOBILE  \\\\\\\\\\\\\\\\\
-  if ($(window).width() < 992) {
-  	//$('#lifeStagesLandingPage #hero .content-wrapper').wrap('<div class = "container"><div class = "row"></div></div>');
-  	//$('#lifeStagesLandingPage #hero .video-holder').wrap('<div class = "container"><div class = "row"></div></div>');
-  	//$('#lifeStagesLandingPage #sectionOne .content-wrapper').wrap('<div class = "container"><div class = "row"></div></div>');
-  }
-
-  ///////////////// MATCH HEIGHT OF CONTENT SECTION  \\\\\\\\\\\\\\\\\
-  //$('#homepage #sectionFour .bucket .icon-wrapper').matchHeight();
-
-
-  //RUN AFTER ALL ELEMENTS INCLUDING IMAGES
-  //$(window).on("load", function() {
-
-  //}); //end of jQuery 'on load' function
+    // MATCH HEIGHT OF CONTENT SECTION
+      //$('#homepage #sectionFour .bucket .icon-wrapper').matchHeight();
 
 
   }); //end of jQuery document ready function

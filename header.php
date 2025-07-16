@@ -17,11 +17,6 @@ defined( 'ABSPATH' ) || exit; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 
-	<!-- GOOGLE FONTS -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-
 	<!-- FAVICONS -->
 	<!-- DON'T FORGET ME! -->
 
@@ -41,11 +36,13 @@ defined( 'ABSPATH' ) || exit; ?>
 		<h2 id="main-nav-label" class="screen-reader-text"><?php esc_html_e( 'Main Navigation', 'understrap' ); ?></h2>
 
 		<div class="container">
-			<a id = "logoLink" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
-				<?php $logo = get_field('logo', 'options'); ?>
-				<img id = "headerLogo" class = "img-fluid" src="<?php echo $logo['url']; ?>" alt="<?php echo get_bloginfo( 'name'); ?>"></a>
+			<a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
+				<?php $img = get_field('logo', 'options');
+						if($img) {
+						    echo wp_get_attachment_image( $img, 'full', "", array('id' => 'headerLogo') );
+						} ?></a>
 
-				<button class="navbar-toggler d-block d-lg-none mx-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavigation" aria-controls="offcanvasNavigation">
+				<button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavigation" aria-controls="offcanvasNavigation">
 						<div id="navIcon">
 						  <span></span>
 						  <span></span>
@@ -73,12 +70,15 @@ defined( 'ABSPATH' ) || exit; ?>
 </header><!-- #wrapper-navbar end -->
 
 <!-- MODAL NAV -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasExampleLabel">
-
-	<div id = "modalTop">
-		<img id = "logo" class = "d-block" src="<?php echo $logo['url']; ?>" alt="<?php echo get_bloginfo( 'name'); ?>">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation">
+	<div id = "modalTop" class = "p-4">
+		<a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
+				<?php $img = get_field('logo', 'options');
+						if($img) {
+						    echo wp_get_attachment_image( $img, 'full', "", array('id' => 'modalNavLogo') );
+						} ?></a>
 		<button type="button" class="text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
-			<i class="fa fa-times-thin fa-3x ms-2" aria-hidden="true"></i>
+			<i class="fa fa-times-thin fa-4x ms-2" aria-hidden="true"></i>
 		</button>
 	</div><!-- #modalTop -->
   <div class="offcanvas-body">

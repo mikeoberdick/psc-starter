@@ -12,6 +12,8 @@ defined( 'ABSPATH' ) || exit; ?>
 
 <div id="js-heightControl" style="height: 0;">&nbsp;</div>
 
+<button id="backToTop" onclick="scrollToTop()">↑</button>
+
 <div id="wrapperFooter">
 	<div class="container-fluid">
 		<div class="row">
@@ -60,13 +62,6 @@ defined( 'ABSPATH' ) || exit; ?>
 </div><!-- #page we need this extra closing tag here -->
 
 <?php wp_footer(); ?>
-
-<script>
-  //AOS.init({
-  	//duration: 1500,
-  	//once: true,
-  //});
-</script>
 
 <?php if (is_page_template('templates/homepage.php')) : ?>
 <script>

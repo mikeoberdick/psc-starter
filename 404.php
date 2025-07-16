@@ -12,7 +12,7 @@ get_header(); ?>
 
 <div id="content" class = "page-wrapper" tabindex="-1">
 	<main id="main" class="site-main">
-		<div id="404">
+		<div id="fourOhFour">
 			
 			<section>
 				<div class="container">
@@ -30,7 +30,7 @@ get_header(); ?>
 				</div><!-- .container -->
 			</section>
 
-		</div><!-- #404 -->
+		</div><!-- #fourOhFour -->
 	</main><!-- #main -->
 </div><!-- #content -->
 
